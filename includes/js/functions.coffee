@@ -237,3 +237,19 @@ cs.async_call				= (functions, timeout) ->
 	for own i of functions
 		setTimeout functions[i], timeout
 	return
+do ->
+	customizer_index			= {}
+	window.Polymer_customizer	= (name, prototype) ->
+		element	= (prototype || document._currentScript).parentNode
+		if element
+			extends_element	= element.getAttribute('extends')
+			index			= customizer_index[name] || 0
+			if index
+				name	= 'tmp-' + name + index
+				element.setAttribute('name', name)
+			if extends_element && extends_element == name
+				++index
+				element.setAttribute('extends', 'tmp-' + extends_element + index)
+				customizer_index[name]	= index
+				element._delay_until	= 'tmp-' + extends_element + index
+		name

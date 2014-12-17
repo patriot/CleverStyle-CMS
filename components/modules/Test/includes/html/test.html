@@ -1,0 +1,20 @@
+<polymer-element name="test-element" extends="test-element">
+	<template></template>
+	<script>
+		Polymer("test-element", {
+			ready : function () {
+				this.parent_method();
+			}
+		});
+	</script>
+</polymer-element>
+<polymer-element name="test-element">
+	<template></template>
+	<script>
+		Polymer("test-element", {
+			parent_method : function () {
+				alert("I'm your parent!")
+			}
+		});
+	</script>
+</polymer-element>
